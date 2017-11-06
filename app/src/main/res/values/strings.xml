@@ -28,4 +28,6 @@
 
     <string name="exitMain">Are you sure you want to exit?</string>
     <string name="done">Done</string>
+    <string name="procenat">≈ </string>
+    <string name="vrednost">2.5 s</string>
 </resources>
