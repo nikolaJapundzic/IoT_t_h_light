@@ -1,6 +1,7 @@
 package things.useful.asynctask_IoT;
 
 import android.app.ActivityManager;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     TextView text;
     CheckBox checkBox;
     private BroadcastReceiver broadcastReceiver;
+    Button cancel;
+    Button buttonABOUT;
 
     float vrednostTemperatura = 0;
     float vrednostVlaznost = 0;
@@ -67,6 +70,22 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
+    private void showABOUT(){
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_layout_about);
+        dialog.setCancelable(false);
+        dialog.setTitle(getResources().getString(R.string.info));
+        cancel = (Button) dialog.findViewById(R.id.but_cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
 
 
     @Override
@@ -79,73 +98,77 @@ public class MainActivity extends AppCompatActivity {
 
                     //text.append("\n" +intent.getExtras().get("vrednosti"));
                     //text.setText(""+intent.getExtras().get("vrednosti"));
+
                     vrednostSvega = ""+intent.getExtras().get("vrednosti");
 
-                    vrednostOsvetljenje = "";
-                    vrednostTemp = "";
-                    vrednostVlaz = "";
+                    if(!vrednostSvega.equals("")){
+                        vrednostOsvetljenje = "";
+                        vrednostTemp = "";
+                        vrednostVlaz = "";
 
-                    vrednostTemperatura = 0;
-                    vrednostVlaznost = 0;
+                        vrednostTemperatura = 0;
+                        vrednostVlaznost = 0;
 
-                    flagT = true;
-                    flagH = false;
-                    flagL = false;
+                        flagT = true;
+                        flagH = false;
+                        flagL = false;
 
-                    if(brojac < brojUzorkovanja){
-                        for (int i = 0; i < vrednostSvega.length(); i++) {
+                        if(brojac < brojUzorkovanja){
+                            for (int i = 0; i < vrednostSvega.length(); i++) {
 
-                            if (flagT) {
-                                vrednostTemp += vrednostSvega.charAt(i);
-                                if (vrednostSvega.charAt(i) == ' ') {
-                                    flagT = false;
-                                    flagH = true;
-                                    continue;
+                                if (flagT) {
+                                    vrednostTemp += vrednostSvega.charAt(i);
+                                    if (vrednostSvega.charAt(i) == ' ') {
+                                        flagT = false;
+                                        flagH = true;
+                                        continue;
+                                    }
+                                }
+                                if (flagH) {
+                                    vrednostVlaz += vrednostSvega.charAt(i);
+                                    if (vrednostSvega.charAt(i) == ' ') {
+                                        flagH = false;
+                                        flagL = true;
+                                        continue;
+                                    }
+                                }
+                                if (flagL) {
+                                    vrednostOsvetljenje += vrednostSvega.charAt(i);
                                 }
                             }
-                            if (flagH) {
-                                vrednostVlaz += vrednostSvega.charAt(i);
-                                if (vrednostSvega.charAt(i) == ' ') {
-                                    flagH = false;
-                                    flagL = true;
-                                    continue;
-                                }
-                            }
-                            if (flagL) {
-                                vrednostOsvetljenje += vrednostSvega.charAt(i);
-                            }
+                            vrednostTemperatura = Float.parseFloat(vrednostTemp);
+                            vrednostVlaznost = Float.parseFloat(vrednostVlaz);
+
+                            vrednostTemperaturaSuma += vrednostTemperatura;
+                            vrednostVlaznostSuma += vrednostVlaznost;
+
+
+                            Log.e("HAOS TEMPERATURA", vrednostTemp);
+                            Log.e("HAOS VLAZNOST", vrednostVlaz);
+                            Log.e("HAOS OSVETLJENJE", vrednostOsvetljenje);
+                            Log.e("HAOS PRAZANRED", "*******************"+brojac);
+
+
+
+
+                            //finalni += vrednostTemperatura+ "\n\n" + vrednostVlaznost + "\n\n" + vrednostOsvetljenje;
+                            brojac ++;
                         }
-                        vrednostTemperatura = Float.parseFloat(vrednostTemp);
-                        vrednostVlaznost = Float.parseFloat(vrednostVlaz);
-
-                        vrednostTemperaturaSuma += vrednostTemperatura;
-                        vrednostVlaznostSuma += vrednostVlaznost;
 
 
-                        Log.e("HAOS TEMPERATURA", vrednostTemp);
-                        Log.e("HAOS VLAZNOST", vrednostVlaz);
-                        Log.e("HAOS OSVETLJENJE", vrednostOsvetljenje);
-                        Log.e("HAOS PRAZANRED", "*******************"+brojac);
+                        if(brojac == brojUzorkovanja){
+                            vrednostTemperatura = vrednostTemperaturaSuma / (brojac);
+                            vrednostVlaznost = vrednostVlaznostSuma / (brojac);
 
+                            finalno = temp1 +vrednostTemperatura+ temp2 +"\n\n"+vlaz1+vrednostVlaznost+vlaz2+"\n\n"+osvet1+vrednostOsvetljenje+osvet2;
 
-
-
-                        //finalni += vrednostTemperatura+ "\n\n" + vrednostVlaznost + "\n\n" + vrednostOsvetljenje;
-                        brojac ++;
+                            text.setText(String.valueOf(finalno));
+                            brojac = 0;
+                            vrednostTemperaturaSuma = 0;
+                            vrednostVlaznostSuma = 0;
+                        }
                     }
 
-
-                    if(brojac == brojUzorkovanja){
-                        vrednostTemperatura = vrednostTemperaturaSuma / (brojac);
-                        vrednostVlaznost = vrednostVlaznostSuma / (brojac);
-
-                        finalno = temp1 +vrednostTemperatura+ temp2 +"\n\n"+vlaz1+vrednostVlaznost+vlaz2+"\n\n"+osvet1+vrednostOsvetljenje+osvet2;
-
-                        text.setText(String.valueOf(finalno));
-                        brojac = 0;
-                        vrednostTemperaturaSuma = 0;
-                        vrednostVlaznostSuma = 0;
-                    }
 
                 }
             };
@@ -168,6 +191,14 @@ public class MainActivity extends AppCompatActivity {
 
         text = (TextView) findViewById(R.id.tv_result);
         checkBox = (CheckBox)findViewById(R.id.checkBox);
+        buttonABOUT = (Button)findViewById(R.id.buttonABOUT);
+
+        buttonABOUT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showABOUT();
+            }
+        });
 
         if(isMyServiceRunning(IoT.class)){
             checkBox.setChecked(true);

@@ -37,7 +37,7 @@ public class IoT extends Service {
                     new SimpleSyncTask().execute(strUrl);
 
                     try {
-                        sleep(2100);
+                        sleep(2500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

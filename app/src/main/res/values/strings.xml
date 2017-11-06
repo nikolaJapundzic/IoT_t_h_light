@@ -7,4 +7,25 @@
     <string name="button4">Prikaži sva stanja</string>
 
     <string name="tv_resulta">Rezultat</string>
+    <string name="service_on_off">Service on/off</string>
+
+    <!-- About dialog -->
+    <string name="info">About</string>
+    <string name="infoDEV1">Developer: </string>
+    <string name="infoDEV2">Useful things</string>
+    <string name="infoEmail1">Email: </string>
+    <string name="infoEmail2">limitless.persistance@gmail.com</string>
+    <string name="infoGame1">Game rules: </string>
+    <string name="infoGame2">Every row, column and 3x3 rectangular must contains numbers from 1 till 9, no duplicate.</string>
+    <string name="infoGIT1">GitHub repository: </string>
+    <string name="infoGIT2">https://github.com/nikolaJapundzic/IoT_t_h_light</string>
+    <!-- About dialog -->
+
+
+    <string name="yes">Yes</string>
+    <string name="no">cancle</string>
+    <string name="exitTabela">If you press Yes, you will not be able to continue same game.</string>
+
+    <string name="exitMain">Are you sure you want to exit?</string>
+    <string name="done">Done</string>
 </resources>
