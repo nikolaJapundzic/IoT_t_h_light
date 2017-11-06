@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">IoT t,h,light</string>
+
+    <string name="button">Prikaži temperaturu</string>
+    <string name="button2">Prikaži relativnu vlažnost</string>
+    <string name="button3">Prikaži osvetljenje</string>
+    <string name="button4">Prikaži sva stanja</string>
+
+    <string name="tv_resulta">Rezultat</string>
+</resources>
