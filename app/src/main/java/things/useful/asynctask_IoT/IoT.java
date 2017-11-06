@@ -20,13 +20,6 @@ public class IoT extends Service {
 
     String strUrl = "http://188.246.60.182:1001/svo=stanje";
     boolean flag = true;
-    String temp1 = "Temperatura: ";
-    String temp2 = " *C";
-    String vlaz1 = "Relativna vlažnost vazduha: ";
-    String vlaz2 = " %";
-    String osvet1 = "Relativno osvetljenje iznosi: ";
-    String osvet2 = " [/]";
-
 
 
     @Nullable
@@ -44,7 +37,7 @@ public class IoT extends Service {
                     new SimpleSyncTask().execute(strUrl);
 
                     try {
-                        sleep(3000);
+                        sleep(2100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
