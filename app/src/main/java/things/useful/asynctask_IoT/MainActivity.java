@@ -189,6 +189,9 @@ public class MainActivity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(),IoT.class);
                         stopService(i);
                         text.setText("Rezultat");
+                        brojac = 0;
+                        vrednostTemperaturaSuma = 0;
+                        vrednostVlaznostSuma = 0;
                     }
                 }
             }
