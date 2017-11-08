@@ -68,10 +68,15 @@ public class MainActivity extends AppCompatActivity {
     String osvet2 = " [/]";
     String finalno = "";
 
+    String stateTemp = "";
+    String stateVlaz = "";
+    String stateOsv = "";
+
 
     boolean flagT = true;
     boolean flagH = false;
     boolean flagL = false;
+
 
     int brojac = 0;
 
@@ -256,9 +261,13 @@ public class MainActivity extends AppCompatActivity {
                             textViewVLAZ.setText(String.valueOf(vrednostVlaznost));
                             textViewOSV.setText(""+vrednostOsvetljenje.charAt(0));*/
 
-                            gauge1.setLowerText(String.valueOf(vrednostTemperatura));
-                            gauge2.setLowerText(String.valueOf(vrednostVlaznost));
-                            gauge3.setLowerText(""+vrednostOsvetljenje.charAt(0));
+                            stateTemp = String.valueOf(vrednostTemperatura);
+                            stateVlaz = String.valueOf(vrednostVlaznost);
+                            stateOsv = ""+vrednostOsvetljenje.charAt(0);
+
+                            gauge1.setLowerText(stateTemp);
+                            gauge2.setLowerText(stateVlaz);
+                            gauge3.setLowerText(stateOsv);
 
                             brojac = 0;
                             vrednostTemperaturaSuma = 0;
@@ -272,6 +281,46 @@ public class MainActivity extends AppCompatActivity {
             };
         }
         registerReceiver(broadcastReceiver,new IntentFilter("update_senzora"));
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        String stateTemp1 = stateTemp;
+        String stateVlaz1 = stateVlaz;
+        String stateOsv1 = stateOsv;
+        int stateProg = progressBar.getProgress();
+        float stateTempSuma = vrednostTemperaturaSuma;
+        float stateVlazSuma = vrednostVlaznostSuma;
+        int stateBrojac = brojac;
+        outState.putString("saved_state_1", stateTemp1);
+        outState.putString("saved_state_2", stateVlaz1);
+        outState.putString("saved_state_3", stateOsv1);
+        outState.putInt("saved_state_4", stateProg);
+        outState.putFloat("saved_state_5", stateTempSuma);
+        outState.putFloat("saved_state_6", stateVlazSuma);
+        outState.putInt("saved_state_7", stateBrojac);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String stateSaved_1 = savedInstanceState.getString("saved_state_1");
+        String stateSaved_2 = savedInstanceState.getString("saved_state_2");
+        String stateSaved_3 = savedInstanceState.getString("saved_state_3");
+        int stateSaved_4 = savedInstanceState.getInt("saved_state_4");
+        float stateSaved_5 = savedInstanceState.getFloat("saved_state_5");
+        float stateSaved_6 = savedInstanceState.getFloat("saved_state_6");
+        int stateSaved_7 = savedInstanceState.getInt("saved_state_7");
+        if(stateSaved_1 != null){
+            gauge1.setLowerText(stateSaved_1);
+            gauge2.setLowerText(stateSaved_2);
+            gauge3.setLowerText(stateSaved_3);
+            progressBar.setProgress(stateSaved_4);
+            vrednostTemperaturaSuma = stateSaved_5;
+            vrednostVlaznostSuma = stateSaved_6;
+            brojac = stateSaved_7;
+        }
     }
 
     @Override
