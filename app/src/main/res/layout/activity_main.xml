@@ -113,12 +113,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                gauge:initialValue="22"
+                gauge:initialValue="-30"
                 gauge:maxValue="50"
                 gauge:minValue="-30"
                 gauge:totalNicks="100"
                 gauge:valuePerNick="1"
-                gauge:upperText="Temperatura"/>
+                gauge:upperText="Temperatura"
+                gauge:lowerText="-30"/>
 
         </LinearLayout>
 
@@ -134,12 +135,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                gauge:initialValue="22"
+                gauge:initialValue="0"
                 gauge:maxValue="100"
                 gauge:minValue="0"
                 gauge:totalNicks="120"
                 gauge:valuePerNick="1"
-                gauge:upperText="R. Vlažnost"/>
+                gauge:upperText="R. Vlažnost"
+                gauge:lowerText="0"/>
         </LinearLayout>
 
         <LinearLayout
@@ -154,12 +156,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                gauge:initialValue="5"
+                gauge:initialValue="0"
                 gauge:maxValue="10"
                 gauge:minValue="0"
                 gauge:totalNicks="20"
                 gauge:valuePerNick="1"
-                gauge:upperText="Osvetljenje"/>
+                gauge:upperText="Osvetljenje"
+                gauge:lowerText="0"/>
         </LinearLayout>
 
     </LinearLayout>

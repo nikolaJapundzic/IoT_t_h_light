@@ -415,6 +415,12 @@ public class MainActivity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(),IoT.class);
                         stopService(i);
                         //text.setText("Rezultat");
+                        gauge1.setLowerText("");
+                        gauge2.setLowerText("");
+                        gauge3.setLowerText("");
+                        gauge1.moveToValue(-30);
+                        gauge2.moveToValue(0);
+                        gauge3.moveToValue(0);
                         brojac = 0;
                         vrednostTemperaturaSuma = 0;
                         vrednostVlaznostSuma = 0;
