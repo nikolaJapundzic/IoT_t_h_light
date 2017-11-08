@@ -28,10 +28,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import de.nitri.gauge.Gauge;
+
 public class MainActivity extends AppCompatActivity {
 
 
-    TextView text;
+    //TextView text;
     CheckBox checkBox;
     private BroadcastReceiver broadcastReceiver;
     Button cancel;
@@ -39,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
     SeekBar seekBar;
     ProgressBar progressBar;
     TextView textProgresVrednost;
+    TextView textViewTEMP;
+    TextView textViewVLAZ;
+    TextView textViewOSV;
+
+
+    Gauge gauge1;
+    Gauge gauge2;
+    Gauge gauge3;
+
 
     float vrednostTemperatura = 0;
     float vrednostVlaznost = 0;
@@ -223,7 +234,32 @@ public class MainActivity extends AppCompatActivity {
 
                             finalno = temp1 +"\n\n"+vrednostTemperatura+ temp2 +"\n\n"+vlaz1+"\n\n"+vrednostVlaznost+vlaz2+"\n\n"+osvet1+"\n\n"+vrednostOsvetljenje+osvet2;
 
-                            text.setText(String.valueOf(finalno));
+                            //text.setText(String.valueOf(finalno));
+
+                            Thread thread1 = new Thread(){
+                                public void run(){
+                                    gauge1.moveToValue(vrednostTemperatura);
+                                    gauge2.moveToValue(vrednostVlaznost);
+                                    if(Character.isDigit(vrednostOsvetljenje.charAt(0))){
+                                        gauge3.moveToValue(Float.valueOf(""+vrednostOsvetljenje.charAt(0)));
+                                    }
+
+                                    /*textViewTEMP.setText(String.valueOf(vrednostTemperatura));
+                                    textViewVLAZ.setText(String.valueOf(vrednostVlaznost));
+                                    textViewOSV.setText(""+vrednostOsvetljenje.charAt(0));*/
+
+                                }
+                            };
+                            thread1.start();
+
+                            /*textViewTEMP.setText(String.valueOf(vrednostTemperatura));
+                            textViewVLAZ.setText(String.valueOf(vrednostVlaznost));
+                            textViewOSV.setText(""+vrednostOsvetljenje.charAt(0));*/
+
+                            gauge1.setLowerText(String.valueOf(vrednostTemperatura));
+                            gauge2.setLowerText(String.valueOf(vrednostVlaznost));
+                            gauge3.setLowerText(""+vrednostOsvetljenje.charAt(0));
+
                             brojac = 0;
                             vrednostTemperaturaSuma = 0;
                             vrednostVlaznostSuma = 0;
@@ -259,12 +295,17 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        text = (TextView) findViewById(R.id.tv_result);
+        //text = (TextView) findViewById(R.id.tv_result);
         checkBox = (CheckBox)findViewById(R.id.checkBox);
         buttonABOUT = (Button)findViewById(R.id.buttonABOUT);
         seekBar = (SeekBar)findViewById(R.id.seekBar);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
         textProgresVrednost = (TextView)findViewById(R.id.textProgresVrednost);
+
+        gauge1 = (Gauge) findViewById(R.id.gauge1);
+        gauge2 = (Gauge) findViewById(R.id.gauge2);
+        gauge3 = (Gauge) findViewById(R.id.gauge3);
+
 
         progressBar.setProgress(0);
         progressBar.setMax(1);
@@ -324,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         Intent i = new Intent(getApplicationContext(),IoT.class);
                         stopService(i);
-                        text.setText("Rezultat");
+                        //text.setText("Rezultat");
                         brojac = 0;
                         vrednostTemperaturaSuma = 0;
                         vrednostVlaznostSuma = 0;

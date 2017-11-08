@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:gauge="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -90,20 +91,78 @@
             android:layout_width="match_parent"
             android:layout_height="40sp"/>
 
+
+
     </LinearLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:weightSum="3"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_result"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tv_resulta"
-            android:textSize="24sp" />
-    </ScrollView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <de.nitri.gauge.Gauge
+                android:id="@+id/gauge1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                gauge:initialValue="22"
+                gauge:maxValue="50"
+                gauge:minValue="-30"
+                gauge:totalNicks="100"
+                gauge:valuePerNick="1"
+                gauge:upperText="Temperatura"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <de.nitri.gauge.Gauge
+                android:id="@+id/gauge2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                gauge:initialValue="22"
+                gauge:maxValue="100"
+                gauge:minValue="0"
+                gauge:totalNicks="120"
+                gauge:valuePerNick="1"
+                gauge:upperText="R. Vlažnost"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <de.nitri.gauge.Gauge
+                android:id="@+id/gauge3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                gauge:initialValue="5"
+                gauge:maxValue="10"
+                gauge:minValue="0"
+                gauge:totalNicks="20"
+                gauge:valuePerNick="1"
+                gauge:upperText="Osvetljenje"/>
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>
