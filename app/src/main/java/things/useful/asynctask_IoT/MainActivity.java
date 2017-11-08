@@ -424,6 +424,7 @@ public class MainActivity extends AppCompatActivity {
                         brojac = 0;
                         vrednostTemperaturaSuma = 0;
                         vrednostVlaznostSuma = 0;
+                        progressBar.setProgress(0);
                     }
                 }
             }
